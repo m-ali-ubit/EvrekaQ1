@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+
+from django.utils import timezone
 from rest_framework.viewsets import ModelViewSet
 
 from navigation.models import Vehicle, NavigationRecord
@@ -12,4 +15,5 @@ class VehicleViewSet(ModelViewSet):
 
 class NavigationRecordViewSet(ModelViewSet):
     serializer_class = NavigationRecordSerializer
-    queryset = NavigationRecord.objects.all()
+    delta_time_48_hours = timezone.now() - timedelta(hours=48)
+    queryset = NavigationRecord.objects.filter(datetime__gte=delta_time_48_hours)

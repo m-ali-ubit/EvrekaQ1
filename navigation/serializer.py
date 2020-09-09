@@ -6,12 +6,12 @@ from navigation.models import Vehicle, NavigationRecord
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
-        exclude = ("id",)
+        fields = "__all__"
 
 
 class NavigationRecordSerializer(serializers.ModelSerializer):
-    vehicle_plate = serializers.SerializerMethodField()
-    datetime = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
+    vehicle_plate = serializers.SerializerMethodField(required=False)
+    datetime = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", required=False)
 
     @staticmethod
     def get_vehicle_plate(instance):
